@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  ft-login:
+    container_name: ft-login
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - type: volume
+        source: ft-login-volume
+        target: /app
+    entrypoint: sh /tmp/entry.sh
+    env_file:
+      - .env
+    ports:
+      - '4000:4000'
+
+volumes:
+  ft-login-volume:
+    name: ft-login-volume
+    driver: local
+    driver_opts:
+      device: ./app
+      type: none
+      o: bind
